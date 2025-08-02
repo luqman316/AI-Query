@@ -3,10 +3,12 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import dotenv from "dotenv";
 import express from "express";
+import connectDB from "./config/db.js";
 
 dotenv.config();
 
 const app = express();
+connectDB();
 
 // Allow CORS for both local and deployed frontend
 const allowedOrigins = [
@@ -34,7 +36,8 @@ app.use(
       callback(new Error("Not allowed by CORS"));
     },
     credentials: true,
-  })
+  }),
+  express.json(),
 );
 
 app.use(bodyParser.json());
